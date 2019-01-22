@@ -34,9 +34,21 @@
       "metadata": {
         "description": "Location of the Logic App."
       }
+    },
+    "daweinslasample7Type": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_ZRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Premium_LRS"
+      ]
     }
   },
-  "variables": {},
+  "variables": {
+    "daweinslasample7Name": "[concat('daweinslasample7', uniqueString(resourceGroup().id))]"},
   "resources": [
     {
       "name": "[parameters('logicAppName')]",
@@ -57,6 +69,20 @@
         },
         "parameters": {}
       }
+    },
+    {
+      "name": "[variables('daweinslasample7Name')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2016-01-01",
+      "sku": {
+        "name": "[parameters('daweinslasample7Type')]"
+      },
+      "dependsOn": [ ],
+      "tags": {
+        "displayName": "daweinslasample7"
+      },
+      "kind": "Storage"
     }
   ],
   "outputs": {}
